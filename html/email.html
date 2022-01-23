@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Symplyfy</title>
+</head>
+<body>
+    <h1>Email</h1>
+    <button id="main">Main</button>
+    <script>
+        const electron = require("electron");
+        const { ipcRenderer } = electron;
+
+        const main_button = document.querySelector("#main");
+        main_button.addEventListener("click", () => {
+            ipcRenderer.send("page:change", "main.html");
+        });
+    </script>
+</body>
+</html>
