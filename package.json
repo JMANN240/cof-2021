@@ -8,7 +8,7 @@
         "build": "npm run electron && next build",
         "electron": "tsc --noEmit false --outDir build",
         "pack": "npm run build && electron-builder -c builder.json",
-        "extract": "npx asar extract dist/win-unpacked/resources/app.asar build/extract",
+        "extract": "npx asar extract dist/win-unpacked/resources/app.asar dist/extract",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],

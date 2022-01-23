@@ -7,6 +7,9 @@
         "entry.js",
         "package.json",
         "node_modules",
-        ".next"
+        {
+            "from": ".next",
+            "to": ".next"
+        }
     ]
 }
