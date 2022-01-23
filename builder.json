@@ -1,0 +1,12 @@
+{
+    "directories": {
+        "output": "dist"
+    },
+    "files": [
+        "build/**/*",
+        "entry.js",
+        "package.json",
+        "node_modules",
+        ".next"
+    ]
+}
