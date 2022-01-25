@@ -36,7 +36,7 @@ app.on("ready", () => {
     })
 
     const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
-    Menu.setApplicationMenu(mainMenu);
+    Menu.setApplicationMenu(null);
 });
 
 ipcMain.on("page:change", (e, p) => {
@@ -44,13 +44,14 @@ ipcMain.on("page:change", (e, p) => {
 
     console.log(p);
 
+    mainWindow.loadURL(mainURL.href);
+
     if (p == "youtube.html") {
-        const view = new BrowserView();
-        mainWindow.setBrowserView(view);
-        view.setBounds({x:width*0.02,y:height*0.02,width:width*0.96,height:height*0.76});
-        view.webContents.loadURL("https://www.youtube.com");
-    } else {
         mainWindow.loadURL(mainURL.href);
+        const youtubeView = new BrowserView();
+        mainWindow.setBrowserView(youtubeView);
+        youtubeView.setBounds({x:width*0.02,y:height*0.02,width:width*0.96,height:height*0.86});
+        youtubeView.webContents.loadURL("https://www.youtube.com");
     }
 });
 
