@@ -2,6 +2,7 @@ const yargs = require('yargs');
 const { hideBin } = require('yargs/helpers')
 const argv = yargs(hideBin(process.argv)).argv
 const { dev } = argv;
+if (dev) require('./hotreload');
 
 const electron = require("electron");
 const Store = require('electron-store');
