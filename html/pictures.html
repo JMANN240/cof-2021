@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Symplyfy</title>
+    <link rel="stylesheet" href="../static/css/global.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/application.css" type="text/css">
+    <script src="../static/js/buttons.js" defer></script>
+    <style>
+        img {
+            width: 15vw;
+            margin: 0.5vw;
+            outline: 1px solid var(--sec);
+        }
+    </style>
+</head>
+<body class="spaced flex column">
+    <div class="slid flex row application" id="images">
+
+    </div>
+    <div class="menu">
+        <button class="good application" id="main">Home</button>
+    </div>
+    <script>
+        const os = require('os');
+        const fs = require('fs');
+        const path = require("path");
+
+        let images = document.querySelector("#images");
+
+        const pictures_path = path.join(os.homedir(), "Pictures");
+
+        console.log(pictures_path);
+
+        fs.readdir(pictures_path, { withFileTypes: true }, (err, files) => {
+            for (let file of files.filter( file => file.name.match(/png|jpg|jpeg|gif|tiff/gi) !== null )) {
+                console.log(file);
+                console.log(file.name.match(/png|jpg|jpeg|gif|tiff/gi));
+                let node = document.createElement("img")
+                node.src = path.join(pictures_path, file.name);
+                images.appendChild(node);
+            }
+        });
+
+    </script>
+</body>
+</html>

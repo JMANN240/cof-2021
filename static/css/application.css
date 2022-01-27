@@ -2,6 +2,7 @@ div.application {
     outline: 1px solid var(--sec);
     width: 96vw;
     height: 76vh;
+    overflow-y: scroll;
 }
 
 div.menu {

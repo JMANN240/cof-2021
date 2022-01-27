@@ -21,6 +21,8 @@
     --prim-shadow: #d0d0d0;
     --prim-shadow-sec: #808080;
     --sec: #404040;
+    --good-green: #b0f0d0;
+    --good-green-shadow: #80c0a0;
 }
 
 * {
@@ -64,6 +66,10 @@ body {
     flex-direction: column;
 }
 
+.good {
+    background-color: var(--good-green);
+}
+
 button {
     margin: 0.25em;
     padding: 0.25em;
@@ -86,37 +92,37 @@ button {
     from {
         opacity: 0%;
         transform: translateY(0.5em);
-        box-shadow: 0 0 0 0 var(--prim-shadow), 0 0 0 0 var(--prim-shadow-sec);
+        box-shadow: 0 0 0 0 var(--good-green-shadow), 0 0 0 0 var(--prim-shadow-sec);
     }
 
     50% {
         opacity: 100%;
         transform: translateY(0.25em);
-        box-shadow: 0 0 0 0 var(--prim-shadow), 0 0 0 0 var(--prim-shadow-sec);
+        box-shadow: 0 0 0 0 var(--good-green-shadow), 0 0 0 0 var(--prim-shadow-sec);
     }
 
     to {
         transform: translateY(0em);
-        box-shadow: 0 0.25em 0 0 var(--prim-shadow), 0 0.25em 10px 2px var(--prim-shadow-sec);
+        box-shadow: 0 0.25em 0 0 var(--good-green-shadow), 0 0.25em 10px 2px var(--prim-shadow-sec);
     }
 }
 
 button.application {
     will-change: transform, opacity, box-shadow;
     font-size: 4vw;
-    border: 1px solid var(--prim-shadow);
+    border: 1px solid var(--good-green-shadow);
     transition-duration: 0.2s;
     transform: translateY(0em);
     opacity: 0;
-    box-shadow: 0 0.25em 0 0 var(--prim-shadow), 0 0.25em 10px 2px var(--prim-shadow-sec);
+    box-shadow: 0 0.25em 0 0 var(--good-green-shadow), 0 0.25em 10px 2px var(--prim-shadow-sec);
 }
 
 button.application:hover {
     transform: translateY(0.05em);
-    box-shadow: 0 0.2em 0 0 var(--prim-shadow), 0 0.2em 8px 1.6px var(--prim-shadow-sec);
+    box-shadow: 0 0.2em 0 0 var(--good-green-shadow), 0 0.2em 8px 1.6px var(--prim-shadow-sec);
 }
 
 button.application:active {
     transform: translateY(0.25em);
-    box-shadow: 0 0 0 0 var(--prim-shadow), 0 0 0 0 var(--prim-shadow-sec);
+    box-shadow: 0 0 0 0 var(--good-green-shadow), 0 0 0 0 var(--prim-shadow-sec);
 }
