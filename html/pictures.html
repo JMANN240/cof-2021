@@ -33,8 +33,6 @@
 
         fs.readdir(pictures_path, { withFileTypes: true }, (err, files) => {
             for (let file of files.filter( file => file.name.match(/png|jpg|jpeg|gif|tiff/gi) !== null )) {
-                console.log(file);
-                console.log(file.name.match(/png|jpg|jpeg|gif|tiff/gi));
                 let node = document.createElement("img")
                 node.src = path.join(pictures_path, file.name);
                 images.appendChild(node);
