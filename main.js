@@ -53,12 +53,7 @@ ipcMain.on("page:change", (e, p) => {
     if (Object.keys(page_links).includes(p)) {
         const view = new BrowserView();
         mainWindow.setBrowserView(view);
-        view.setBounds({
-            x:parseInt(width*0.02),
-            y:parseInt(height*0.02),
-            width:parseInt(width*0.96),
-            height:parseInt(height*0.76)
-        });
+        view.setBounds({x:0, y:0, width:width, height:parseInt(height*0.8)});
         view.webContents.loadURL(page_links[p]);
     } else {
         mainWindow.setBrowserView(null);
