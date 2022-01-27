@@ -17,14 +17,10 @@ let htmlPath = path.join("file://", __dirname, "html")
 
 let altKey = process.platform == "darwin" ? "Command" : "Ctrl"
 
-let width, height;
-
+let mainWindow;
 app.on("ready", () => {
     const { screen } = require('electron')
     const primaryDisplay = screen.getPrimaryDisplay()
-    width = primaryDisplay.workAreaSize.width
-    height = primaryDisplay.workAreaSize.height
-    console.log(width, height);
 
     mainWindow = new BrowserWindow({
         fullscreen: !dev,
@@ -55,6 +51,7 @@ ipcMain.on("page:change", (e, p) => {
     const html_file = `${p}.html`
     let mainURL = new URL(path.join(htmlPath, html_file));
     mainWindow.loadURL(mainURL.href);
+    const { height, width } = mainWindow.getContentBounds();
 
     if (Object.keys(page_links).includes(p)) {
         const view = new BrowserView();
