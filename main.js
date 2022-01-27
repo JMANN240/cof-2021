@@ -42,7 +42,7 @@ app.on("ready", () => {
     })
 
     const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
-    Menu.setApplicationMenu(null);
+    Menu.setApplicationMenu(dev ? mainMenu : null);
 });
 
 page_links = {
