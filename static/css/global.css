@@ -76,6 +76,11 @@ button {
     border-radius: 0.25em;
 }
 
+.fas,
+.fab {
+    background-color: inherit;
+}
+
 @keyframes fade-in {
     from {
         opacity: 0%;

@@ -41,7 +41,8 @@ app.on("ready", () => {
 
 page_links = {
     youtube: "https://www.youtube.com",
-    email: "https://mail.google.com"
+    email: "https://mail.google.com",
+    search: "https://google.com"
 }
 
 ipcMain.on("page:change", (e, p) => {
