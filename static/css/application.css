@@ -1,11 +1,10 @@
 div.application {
-    outline: 1px solid var(--sec);
-    width: 96vw;
-    height: 76vh;
+    width: 100vw;
+    height: 80vh;
     overflow-y: scroll;
 }
 
 div.menu {
-    width: 96vw;
-    height: 18vh;
+    width: 100vw;
+    height: 20vh;
 }

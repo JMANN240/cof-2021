@@ -36,7 +36,7 @@ app.on("ready", () => {
     })
 
     const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
-    Menu.setApplicationMenu(mainMenu);
+    Menu.setApplicationMenu(null);
 });
 
 page_links = {
