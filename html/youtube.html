@@ -2,38 +2,14 @@
 <html lang="en">
 <head>
     <title>Symplyfy</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-        }
-
-        div.application {
-            background-color: red;
-            margin: 2vh 2vw;
-            width: 96vw;
-            height: 86vh;
-        }
-
-        div.menu {
-            background-color: red;
-            margin: 0 2vw 2vh 2vw;
-            width: 96vw;
-            height: 8vh;
-        }
-    </style>
+    <link rel="stylesheet" href="../static/css/global.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/application.css" type="text/css">
+    <script src="../static/js/buttons.js" defer></script>
 </head>
-<body>
+<body class="spaced flex column">
     <div class="application"></div>
-    <div class="menu"></div>
+    <div class="menu">
+        <button class="application" id="main">Home</button>
+    </div>
 </body>
 </html>

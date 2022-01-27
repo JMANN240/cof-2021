@@ -14,25 +14,3 @@ h1 {
     margin: 2vh 2vw;
     will-change: transform, opacity;
 }
-
-button.application {
-    will-change: transform, opacity, box-shadow;
-    opacity: 100%;
-    font-size: 4vw;
-    border: 1px solid #d0d0d0;
-    animation-name: button-in;
-    animation-duration: 2s;
-    transition-duration: 0.2s;
-    transform: translateY(-0.25em);
-    box-shadow: 0 0.25em 0 0 #d0d0d0, 0 0.25em 10px 2px #404040;
-}
-
-button.application:hover {
-    transform: translateY(-0.2em);
-    box-shadow: 0 0.2em 0 0 #d0d0d0, 0 0.2em 8px 1.6px #404040;
-}
-
-button.application:active {
-    transform: translateY(0);
-    box-shadow: 0 0 0 0 #d0d0d0, 0 0 0 0 #404040;
-}

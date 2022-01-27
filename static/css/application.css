@@ -1,0 +1,10 @@
+div.application {
+    outline: 1px solid var(--sec);
+    width: 96vw;
+    height: 76vh;
+}
+
+div.menu {
+    width: 96vw;
+    height: 18vh;
+}

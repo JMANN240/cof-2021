@@ -2,18 +2,14 @@
 <html lang="en">
 <head>
     <title>Symplyfy</title>
+    <link rel="stylesheet" href="../static/css/global.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/application.css" type="text/css">
+    <script src="../static/js/buttons.js" defer></script>
 </head>
-<body>
-    <h1>Email</h1>
-    <button id="main">Main</button>
-    <script>
-        const electron = require("electron");
-        const { ipcRenderer } = electron;
-
-        const main_button = document.querySelector("#main");
-        main_button.addEventListener("click", () => {
-            ipcRenderer.send("page:change", "main.html");
-        });
-    </script>
+<body class="spaced flex column">
+    <div class="application"></div>
+    <div class="menu">
+        <button class="application" id="main">Home</button>
+    </div>
 </body>
 </html>

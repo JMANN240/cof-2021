@@ -39,19 +39,23 @@ app.on("ready", () => {
     Menu.setApplicationMenu(null);
 });
 
+page_links = {
+    youtube: "https://www.youtube.com",
+    email: "https://mail.google.com"
+}
+
 ipcMain.on("page:change", (e, p) => {
-    let mainURL = new URL(path.join(htmlPath, p));
-
-    console.log(p);
-
+    const html_file = `${p}.html`
+    let mainURL = new URL(path.join(htmlPath, html_file));
     mainWindow.loadURL(mainURL.href);
 
-    if (p == "youtube.html") {
-        mainWindow.loadURL(mainURL.href);
-        const youtubeView = new BrowserView();
-        mainWindow.setBrowserView(youtubeView);
-        youtubeView.setBounds({x:width*0.02,y:height*0.02,width:width*0.96,height:height*0.86});
-        youtubeView.webContents.loadURL("https://www.youtube.com");
+    if (Object.keys(page_links).includes(p)) {
+        const view = new BrowserView();
+        mainWindow.setBrowserView(view);
+        view.setBounds({x:width*0.02,y:height*0.02,width:width*0.96,height:height*0.76});
+        view.webContents.loadURL(page_links[p]);
+    } else {
+        mainWindow.setBrowserView(null);
     }
 });
 
