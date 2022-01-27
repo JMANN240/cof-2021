@@ -4,6 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+    "dev": "electron . --dev",
     "start": "electron ."
   },
   "author": "JT Raber, Colby Reinhart, Vanessa Sanders, Christopher Seitz",
@@ -13,6 +14,8 @@
     "electron-store": "^8.0.1"
   },
   "devDependencies": {
-    "electron-packager": "^15.4.0"
+    "chokidar": "^3.5.3",
+    "electron-packager": "^15.4.0",
+    "yargs": "^17.3.1"
   }
 }

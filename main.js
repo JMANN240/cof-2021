@@ -1,3 +1,8 @@
+const yargs = require('yargs');
+const { hideBin } = require('yargs/helpers')
+const argv = yargs(hideBin(process.argv)).argv
+const { dev } = argv;
+
 const electron = require("electron");
 const Store = require('electron-store');
 const { URL, format } = require("url");
@@ -21,7 +26,7 @@ app.on("ready", () => {
     console.log(width, height);
 
     mainWindow = new BrowserWindow({
-        fullscreen: true,
+        fullscreen: !dev,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
