@@ -9,11 +9,25 @@
     <script src="../static/js/buttons.js" defer></script>
 </head>
 <body class="spaced flex column">
+
+    <div id="previewModal" class="spaced flex column">
+        <img id="imageView" src="#">
+        <div class="centered flex row">
+            <button class="fancy good">
+                <i class="fas fa-print"></i> Print
+            </button>
+            <button class="fancy bad"
+                onclick='document.querySelector("#previewModal").style.display="none"'>
+                <i class="fas fa-times-circle"></i> Close
+            </button>
+        </div>
+    </div>
+
     <div class="centered flex row application" id="images">
 
     </div>
     <div class="menu">
-        <button class="good application" id="main"><i class="fas fa-home"></i> Home</button>
+        <button class="good fancy application" id="main"><i class="fas fa-home"></i> Home</button>
     </div>
     <script>
         const os = require('os');
@@ -29,11 +43,15 @@
         fs.readdir(pictures_path, { withFileTypes: true }, (err, files) => {
             for (let file of files.filter( file => file.name.match(/png|jpg|jpeg|gif|tiff/gi) !== null )) {
                 let node = document.createElement("img")
-                node.src = path.join(pictures_path, file.name);
+                const picSource = path.join(pictures_path, file.name);
+                node.src = picSource;
+                node.addEventListener("click", () => {
+                    document.querySelector("#imageView").src = picSource;
+                    document.querySelector("#previewModal").style.display="flex";
+                });
                 images.appendChild(node);
             }
         });
-
     </script>
 </body>
 </html>

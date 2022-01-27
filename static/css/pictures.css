@@ -6,8 +6,21 @@ img {
 }
 
 img:hover {
-	width: 32vw;
+	transform: scale(1.05);
 	transition: 0.3s;
-	outline: ridge green 15px;
+	outline: ridge var(--good-green) 15px;
 	border-radius: 5px;
+}
+
+#imageView {
+	height: 60vh;
+	width: auto;
+}
+
+#previewModal {
+	height: 85vh;
+	display: none;
+	position: absolute;
+	z-index: 2;
+	border: solid 5px;
 }
