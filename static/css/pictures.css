@@ -1,5 +1,13 @@
 img {
-	width: 15vw;
-	margin: 0.5vw;
+	width: 30vw;
+	margin: 0.6vw;
 	outline: 1px solid var(--sec);
+	transition: 0.3s;
+}
+
+img:hover {
+	width: 32vw;
+	transition: 0.3s;
+	outline: ridge green 15px;
+	border-radius: 5px;
 }
