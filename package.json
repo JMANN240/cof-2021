@@ -10,6 +10,7 @@
   "author": "JT Raber, Colby Reinhart, Vanessa Sanders, Christopher Seitz",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "electron": "^16.0.7",
     "electron-store": "^8.0.1"
   },
