@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../static/css/application.css" type="text/css">
     <link rel="stylesheet" href="../static/css/pictures.css" type="text/css">
     <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.css" type="text/css">
+    <script src="../static/js/pictures.js" defer></script>
     <script src="../static/js/buttons.js" defer></script>
 </head>
 <body class="spaced flex column">
@@ -28,39 +29,5 @@
     <div class="menu">
         <button class="good fancy application" id="main"><i class="fas fa-home"></i> Home</button>
     </div>
-    <script>
-        const os = require('os');
-        const fs = require('fs');
-        const path = require("path");
-
-        let images = document.querySelector("#images");
-
-        const pictures_path = path.join(os.homedir(), "Pictures");
-
-        console.log(pictures_path);
-
-        let exit_button = document.querySelector("#exit");
-        let modal = document.querySelector("#previewModal");
-
-        exit_button.addEventListener("click", () => {
-            modal.style.display = "none";
-            modal.style.animation = null;
-        });
-
-        fs.readdir(pictures_path, { withFileTypes: true }, (err, files) => {
-            for (let file of files.filter( file => file.name.match(/png|jpg|jpeg|gif|tiff/gi) !== null )) {
-                let node = document.createElement("img")
-                node.classList.add("clickable");
-                const picSource = path.join(pictures_path, file.name);
-                node.src = picSource;
-                node.addEventListener("click", () => {
-                    document.querySelector("#imageView").src = picSource;
-                    modal.style.display = "flex";
-                    modal.style.animationName = "fade-in";
-                });
-                images.appendChild(node);
-            }
-        });
-    </script>
 </body>
 </html>
