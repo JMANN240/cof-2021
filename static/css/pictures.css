@@ -1,15 +1,15 @@
 img {
 	width: 30vw;
-	margin: 0.6vw;
+	margin: 0.8vw;
 	outline: 1px solid var(--sec);
 	transition: 0.3s;
 }
 
-img:hover {
+img.clickable:hover {
 	transform: scale(1.05);
 	transition: 0.3s;
-	outline: ridge var(--good-green) 15px;
-	border-radius: 5px;
+	outline: outset var(--good-green) 8px;
+	border-radius: 4px;
 }
 
 #imageView {
@@ -20,7 +20,10 @@ img:hover {
 #previewModal {
 	height: 85vh;
 	display: none;
+	opacity: 0%;
 	position: absolute;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
 	z-index: 2;
 	border: solid 5px;
 }
