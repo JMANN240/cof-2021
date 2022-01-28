@@ -1,24 +1,24 @@
 const electron = require("electron");
 const { ipcRenderer } = electron;
 
-application_buttons = document.querySelectorAll("button.fancy");
+let buttons = document.querySelectorAll("button.fancy");
 
-for (let [index, button] of application_buttons.entries()) {
+for (let [index, button] of buttons.entries()) {
     if (button.classList.contains("application")) {
         button.addEventListener("click", () => {
             ipcRenderer.send("page:change", button.id);
         });
     }
+
+    let animation_name;
     if (button.classList.contains("good")) {
-        setTimeout(() => {
-            button.style.opacity = 1;
-            button.style.animation = "button-in-good 2s";
-        }, ( index + 1 ) * 200);
+        animation_name = "button-in-good";
+    } else if (button.classList.contains("bad")) {
+        animation_name = "button-in-bad";
     }
-    if (button.classList.contains("bad")) {
-        setTimeout(() => {
-            button.style.opacity = 1;
-            button.style.animation = "button-in-bad 2s";
-        }, ( index + 1 ) * 200);
-    }
+
+    setTimeout(() => {
+        button.style.opacity = 1;
+        button.style.animation = `${animation_name} 2s`;
+    }, ( index + 1 ) * 200);
 }
