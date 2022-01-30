@@ -4,13 +4,21 @@
     <title>Symplyfy</title>
     <link rel="stylesheet" href="../static/css/global.css" type="text/css">
     <link rel="stylesheet" href="../static/css/application.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/settings.css" type="text/css">
     <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.css" type="text/css">
     <script src="../static/js/buttons.js" defer></script>
     <script src="../static/js/settings.js" defer></script>
 </head>
 <body class="spaced flex column">
     <div class="application slid flex column">
-        <select id="default-printer"></select>
+        <div class="outset setting">
+            Username:
+            <input type="text" class="valued" id="username">
+        </div>
+        <div class="outset setting">
+            Default Printer:
+            <select id="default-printer" class="valued"></select>
+        </div>
     </div>
     <div class="menu">
         <button class="good fancy application" id="main"><i class="fas fa-home"></i> Home</button>

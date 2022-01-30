@@ -105,6 +105,11 @@ ipcMain.handle("settings:get", (e, setting) => {
     return val;
 });
 
+ipcMain.on("settings:delete", (e, setting) => {
+    const val = store.delete(setting);
+    console.log(`Deleting ${setting}`);
+});
+
 // Create the menu for the main window
 const mainMenuTemplate = [
     {
