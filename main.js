@@ -69,7 +69,10 @@ ipcMain.on("page:change", (e, p) => {
 ipcMain.on("page:print", (e) => {
     let view = mainWindow.getBrowserView();
     let page = view.webContents;
-    page.print();
+    page.print({
+        silent: true,
+        deviceName: store.get("default_printer")
+    });
 });
 
 ipcMain.on("image:print", (e, img) => {
@@ -79,7 +82,27 @@ ipcMain.on("image:print", (e, img) => {
     page.loadURL(mainURL.href);
     // page.executeJavaScript(`document.body.style.backgroundImage = 'url("${img}")'`);
     page.executeJavaScript(`document.querySelector("#image").src = "${img}";`);
-    page.print();
+    let options = {
+        silent: true,
+        deviceName: store.get("default_printer")
+    }
+    console.log(options);
+    page.print(options);
+});
+
+ipcMain.handle("get-printers", async (e) => {
+    return mainWindow.webContents.getPrinters();
+});
+
+ipcMain.on("settings:set", (e, setting, argument) => {
+    console.log(`Setting ${setting} to ${argument}`);
+    store.set(setting, argument);
+});
+
+ipcMain.handle("settings:get", (e, setting) => {
+    const val = store.get(setting);
+    console.log(`Getting ${setting} is ${val}`);
+    return val;
 });
 
 // Create the menu for the main window

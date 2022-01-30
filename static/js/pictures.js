@@ -9,7 +9,7 @@ const pictures_path = path.join(os.homedir(), "Pictures");
 console.log(pictures_path);
 
 let image_view = document.querySelector("#imageView");
-let print_button = document.querySelector("#print");
+let print_button = document.querySelector("#image-print");
 let exit_button = document.querySelector("#exit");
 let modal = document.querySelector("#previewModal");
 
