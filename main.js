@@ -9,7 +9,7 @@ const Store = require('electron-store');
 const { URL, format } = require("url");
 const path = require("path");
 
-const {app, BrowserWindow, BrowserView, Menu, ipcMain} = electron;
+const {app, BrowserWindow, BrowserView, Menu, ipcMain, webContents} = electron;
 
 const store = new Store();
 
@@ -64,6 +64,16 @@ ipcMain.on("page:change", (e, p) => {
     } else {
         mainWindow.setBrowserView(null);
     }
+});
+
+ipcMain.on("image:print", (e, img) => {
+    let view = new BrowserView();
+    let page = view.webContents;
+    let mainURL = new URL(path.join(htmlPath, "print.html"));
+    page.loadURL(mainURL.href);
+    // page.executeJavaScript(`document.body.style.backgroundImage = 'url("${img}")'`);
+    page.executeJavaScript(`document.querySelector("#image").src = "${img}";`);
+    page.print();
 });
 
 // Create the menu for the main window
