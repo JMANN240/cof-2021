@@ -10,6 +10,12 @@ for (let [index, button] of buttons.entries()) {
         });
     }
 
+    if (button.id == "print") {
+        button.addEventListener("click", () => {
+            ipcRenderer.send("page:print");
+        });
+    }
+
     let animation_name;
     if (button.classList.contains("good")) {
         animation_name = "button-in-good";

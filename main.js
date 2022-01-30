@@ -66,6 +66,12 @@ ipcMain.on("page:change", (e, p) => {
     }
 });
 
+ipcMain.on("page:print", (e) => {
+    let view = mainWindow.getBrowserView();
+    let page = view.webContents;
+    page.print();
+});
+
 ipcMain.on("image:print", (e, img) => {
     let view = new BrowserView();
     let page = view.webContents;
