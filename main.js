@@ -74,6 +74,9 @@ ipcMain.on("page:change", (e, p) => {
         view.setBounds({x:0, y:0, width:width, height:parseInt(height*0.8)});
         view.webContents.loadURL(page_links[p]);
     } else {
+        if (mainWindow.getBrowserView() != undefined) {
+            mainWindow.getBrowserView().webContents.destroy();
+        }
         mainWindow.setBrowserView(null);
     }
 });
@@ -95,7 +98,6 @@ ipcMain.on("image:print", (e, img) => {
     // page.executeJavaScript(`document.body.style.backgroundImage = 'url("${img}")'`);
     page.executeJavaScript(`document.querySelector("#image").src = "${img}";`);
     let options = {
-        silent: true,
         deviceName: store.get("default_printer")
     }
     console.log(options);
