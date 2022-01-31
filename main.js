@@ -52,6 +52,18 @@ page_links = {
 }
 
 ipcMain.on("page:change", (e, p) => {
+    if (p.startsWith("custom-button")) {
+        let mainURL = new URL(path.join(htmlPath, "custom.html"));
+        mainWindow.loadURL(mainURL.href);
+        const view = new BrowserView();
+        mainWindow.setBrowserView(view);
+        view.setBounds({x:0, y:0, width:width, height:parseInt(height*0.8)});
+        let setting = p.replace(/button/g, "link").replace(/-/g, '_');
+        console.log(setting);
+        view.webContents.loadURL(store.get(setting));
+        return;
+    }
+
     const html_file = `${p}.html`
     let mainURL = new URL(path.join(htmlPath, html_file));
     mainWindow.loadURL(mainURL.href);

@@ -40,9 +40,21 @@ body {
     height: 100vh;
 }
 
+input {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid var(--prim-shadow-sec);
+    border: none;
+    border-radius: 0.5em;
+}
+
 .flex {
     display: flex;
     flex-wrap: wrap;
+}
+
+.nowrap {
+    flex-wrap: nowrap;
 }
 
 .slid {
