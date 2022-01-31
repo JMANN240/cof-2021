@@ -2,6 +2,7 @@ div.application {
     width: 100vw;
     height: 80vh;
     overflow-y: scroll;
+    box-shadow: 0 0 10px 2px var(--prim-shadow-sec) inset;
 }
 
 div.menu {
