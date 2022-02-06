@@ -19,6 +19,10 @@ let altKey = process.platform == "darwin" ? "Command" : "Ctrl"
 
 let width, height;
 
+app.setLoginItemSettings({
+    openAtLogin: true
+});
+
 app.on("ready", () => {
     const { screen } = require('electron')
     const primaryDisplay = screen.getPrimaryDisplay()
@@ -28,6 +32,7 @@ app.on("ready", () => {
 
     mainWindow = new BrowserWindow({
         fullscreen: !dev,
+        kiosk: true,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
