@@ -1,6 +1,3 @@
-const electron = require("electron");
-const { ipcRenderer } = electron;
-
 let animate_buttons = () => {
     let buttons = document.querySelectorAll("button.fancy");
 

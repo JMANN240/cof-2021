@@ -139,8 +139,7 @@ button {
     }
 
     to {
-        transform: translateY(0em);
-        box-shadow: 0 0.25em 0 0 var(--good-green-shadow), 0 0.25em 10px 2px var(--prim-shadow-sec);
+        
     }
 }
 
@@ -158,8 +157,7 @@ button {
     }
 
     to {
-        transform: translateY(0em);
-        box-shadow: 0 0.25em 0 0 var(--bad-red-shadow), 0 0.25em 10px 2px var(--prim-shadow-sec);
+        
     }
 }
 

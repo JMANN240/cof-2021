@@ -52,27 +52,26 @@ page_links = {
 }
 
 ipcMain.on("page:change", (e, p) => {
-    if (p.startsWith("custom-button")) {
-        let mainURL = new URL(path.join(htmlPath, "custom.html"));
-        mainWindow.loadURL(mainURL.href);
-        const view = new BrowserView();
-        mainWindow.setBrowserView(view);
-        view.setBounds({x:0, y:0, width:width, height:parseInt(height*0.8)});
-        let setting = p.replace(/button/g, "link").replace(/-/g, '_');
-        console.log(setting);
-        view.webContents.loadURL(store.get(setting));
-        return;
+    let html_file, link;
+    if (p.startsWith("custom-button") || Object.keys(page_links).includes(p)) {
+        html_file= "web.html";
+        if (p.startsWith("custom-button")) {
+            let setting = p.replace(/button/g, "link").replace(/-/g, '_');
+            link = store.get(setting)
+        } else if (Object.keys(page_links).includes(p)) {
+            link = page_links[p]
+        }
+    } else {
+        html_file = `${p}.html`;
     }
-
-    const html_file = `${p}.html`
     let mainURL = new URL(path.join(htmlPath, html_file));
     mainWindow.loadURL(mainURL.href);
 
-    if (Object.keys(page_links).includes(p)) {
+    if (p.startsWith("custom-button") || Object.keys(page_links).includes(p)) {
         const view = new BrowserView();
         mainWindow.setBrowserView(view);
         view.setBounds({x:0, y:0, width:width, height:parseInt(height*0.8)});
-        view.webContents.loadURL(page_links[p]);
+        view.webContents.loadURL(link);
     } else {
         if (mainWindow.getBrowserView() != undefined) {
             mainWindow.getBrowserView().webContents.destroy();
@@ -85,7 +84,6 @@ ipcMain.on("page:print", (e) => {
     let view = mainWindow.getBrowserView();
     let page = view.webContents;
     page.print({
-        silent: true,
         deviceName: store.get("default_printer")
     });
 });

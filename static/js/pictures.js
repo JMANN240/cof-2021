@@ -1,7 +1,3 @@
-const os = require('os');
-const fs = require('fs');
-const path = require("path");
-
 let images = document.querySelector("#images");
 
 const pictures_path = path.join(os.homedir(), "Pictures");
