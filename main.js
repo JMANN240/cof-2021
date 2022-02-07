@@ -20,7 +20,7 @@ let altKey = process.platform == "darwin" ? "Command" : "Ctrl"
 let width, height;
 
 app.setLoginItemSettings({
-    openAtLogin: true
+    openAtLogin: false
 });
 
 app.on("ready", () => {
@@ -32,7 +32,6 @@ app.on("ready", () => {
 
     mainWindow = new BrowserWindow({
         fullscreen: !dev,
-        kiosk: true,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
@@ -53,7 +52,8 @@ app.on("ready", () => {
 page_links = {
     youtube: "https://www.youtube.com",
     email: "https://mail.google.com",
-    search: "https://google.com"
+    search: "https://google.com",
+    facebook: "https://facebook.com"
 }
 
 ipcMain.on("page:change", (e, p) => {
@@ -89,7 +89,16 @@ ipcMain.on("page:print", (e) => {
     let view = mainWindow.getBrowserView();
     let page = view.webContents;
     page.print({
-        deviceName: store.get("default_printer")
+        silent: true,
+        printBackground: true,
+        deviceName: store.get("default_printer"),
+        copies: 1
+    }, (succ, err) => {
+        if (succ) {
+            console.log("printed!");
+        } else {
+            console.log(err);
+        }
     });
 });
 
@@ -100,11 +109,21 @@ ipcMain.on("image:print", (e, img) => {
     page.loadURL(mainURL.href);
     // page.executeJavaScript(`document.body.style.backgroundImage = 'url("${img}")'`);
     page.executeJavaScript(`document.querySelector("#image").src = "${img}";`);
-    let options = {
-        deviceName: store.get("default_printer")
-    }
-    console.log(options);
-    page.print(options);
+    // mainWindow.setBrowserView(view);
+    setTimeout(()=>{
+        page.print({
+            silent: true,
+            printBackground: true,
+            deviceName: store.get("default_printer"),
+            copies: 1
+        }, (succ, err) => {
+            if (succ) {
+                console.log("printed!");
+            } else {
+                console.log(err);
+            }
+        });
+    }, 100)
 });
 
 ipcMain.handle("get-printers", async (e) => {
