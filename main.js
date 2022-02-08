@@ -51,7 +51,9 @@ page_links = {
     youtube: "https://www.youtube.com",
     email: "https://mail.google.com",
     search: "https://google.com",
-    facebook: "https://facebook.com"
+    facebook: "https://facebook.com",
+    docs: "https://docs.google.com/document",
+    sheets: "https://docs.google.com/spreadsheets"
 }
 
 ipcMain.on("page:change", (e, p) => {
