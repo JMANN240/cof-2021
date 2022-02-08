@@ -102,28 +102,31 @@ ipcMain.on("page:print", (e) => {
     });
 });
 
-ipcMain.on("image:print", (e, img) => {
+let page_to_print;
+
+ipcMain.on("image:request", (e, img) => {
+    console.log(`requested to print ${img}`);
     let view = new BrowserView();
-    let page = view.webContents;
+    page_to_print = view.webContents;
     let mainURL = new URL(path.join(htmlPath, "print.html"));
-    page.loadURL(mainURL.href);
-    // page.executeJavaScript(`document.body.style.backgroundImage = 'url("${img}")'`);
-    page.executeJavaScript(`document.querySelector("#image").src = "${img}";`);
-    // mainWindow.setBrowserView(view);
-    setTimeout(()=>{
-        page.print({
-            silent: true,
-            printBackground: true,
-            deviceName: store.get("default_printer"),
-            copies: 1
-        }, (succ, err) => {
-            if (succ) {
-                console.log("printed!");
-            } else {
-                console.log(err);
-            }
-        });
-    }, 100)
+    page_to_print.loadURL(mainURL.href);
+    await page_to_print.executeJavaScript(`document.querySelector("#image").src = "${img}";`);
+});
+
+ipcMain.on("image:print", (e) => {
+    console.log("printing...");
+    page_to_print.print({
+        silent: true,
+        printBackground: true,
+        deviceName: store.get("default_printer"),
+        copies: 1
+    }, (succ, err) => {
+        if (succ) {
+            console.log("printed!");
+        } else {
+            console.log(err);
+        }
+    });
 });
 
 ipcMain.handle("get-printers", async (e) => {

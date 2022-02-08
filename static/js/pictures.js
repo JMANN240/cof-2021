@@ -10,7 +10,7 @@ let exit_button = document.querySelector("#exit");
 let modal = document.querySelector("#previewModal");
 
 print_button.addEventListener("click", () => {
-    ipcRenderer.send("image:print", image_view.src);
+    ipcRenderer.send("image:request", image_view.src);
 });
 
 exit_button.addEventListener("click", () => {
