@@ -20,7 +20,7 @@ let altKey = process.platform == "darwin" ? "Command" : "Ctrl"
 let width, height;
 
 app.setLoginItemSettings({
-    openAtLogin: false
+    openAtLogin: true
 });
 
 let mainWindow;
