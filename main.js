@@ -23,12 +23,10 @@ app.setLoginItemSettings({
     openAtLogin: false
 });
 
+let mainWindow;
 app.on("ready", () => {
     const { screen } = require('electron')
     const primaryDisplay = screen.getPrimaryDisplay()
-    width = primaryDisplay.workAreaSize.width
-    height = primaryDisplay.workAreaSize.height
-    console.log(width, height);
 
     mainWindow = new BrowserWindow({
         fullscreen: !dev,
@@ -71,6 +69,7 @@ ipcMain.on("page:change", (e, p) => {
     }
     let mainURL = new URL(path.join(htmlPath, html_file));
     mainWindow.loadURL(mainURL.href);
+    const { height, width } = mainWindow.getContentBounds();
 
     if (p.startsWith("custom-button") || Object.keys(page_links).includes(p)) {
         const view = new BrowserView();
