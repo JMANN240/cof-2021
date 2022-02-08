@@ -23,6 +23,8 @@
     --sec: #404040;
     --good-green: #b0f0d0;
     --good-green-shadow: #80c0a0;
+    --bad-red-shadow: #aa3723;
+    --bad-red: #f04d30;
 }
 
 * {
@@ -38,9 +40,21 @@ body {
     height: 100vh;
 }
 
+input {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid var(--prim-shadow-sec);
+    border: none;
+    border-radius: 0.5em;
+}
+
 .flex {
     display: flex;
     flex-wrap: wrap;
+}
+
+.nowrap {
+    flex-wrap: nowrap;
 }
 
 .slid {
@@ -68,6 +82,24 @@ body {
 
 .good {
     background-color: var(--good-green);
+    border: 1px solid var(--good-green-shadow);
+}
+
+.bad {
+    background-color: var(--bad-red);
+    border: 1px solid var(--bad-red-shadow);
+}
+
+.outset {
+    transform: translateY(-1vh);
+    outline: 1px solid var(--prim-shadow);
+    box-shadow: 0 1vh 0 0 var(--prim-shadow), 0 1vh 5px 2px var(--prim-shadow-sec);
+}
+
+.inset {
+    transform: translateY(-0.5vh);
+    outline: 1px solid var(--prim-shadow);
+    box-shadow: 0 0.5vh 0 0 var(--prim-shadow) inset, 0 0.5vh 5px 2px var(--prim-shadow-sec) inset;
 }
 
 button {
@@ -93,7 +125,7 @@ button {
     }
 }
 
-@keyframes button-in {
+@keyframes button-in-good {
     from {
         opacity: 0%;
         transform: translateY(0.5em);
@@ -107,27 +139,60 @@ button {
     }
 
     to {
-        transform: translateY(0em);
-        box-shadow: 0 0.25em 0 0 var(--good-green-shadow), 0 0.25em 10px 2px var(--prim-shadow-sec);
+        
     }
 }
 
-button.application {
+@keyframes button-in-bad {
+    from {
+        opacity: 0%;
+        transform: translateY(0.5em);
+        box-shadow: 0 0 0 0 var(--bad-red-shadow), 0 0 0 0 var(--prim-shadow-sec);
+    }
+
+    50% {
+        opacity: 100%;
+        transform: translateY(0.25em);
+        box-shadow: 0 0 0 0 var(--bad-red-shadow), 0 0 0 0 var(--prim-shadow-sec);
+    }
+
+    to {
+        
+    }
+}
+
+button.fancy {
     will-change: transform, opacity, box-shadow;
     font-size: 4vw;
-    border: 1px solid var(--good-green-shadow);
     transition-duration: 0.2s;
     transform: translateY(0em);
     opacity: 0;
+}
+
+button.good {
     box-shadow: 0 0.25em 0 0 var(--good-green-shadow), 0 0.25em 10px 2px var(--prim-shadow-sec);
 }
 
-button.application:hover {
+button.bad {
+    box-shadow: 0 0.25em 0 0 var(--bad-red-shadow), 0 0.25em 10px 2px var(--prim-shadow-sec);
+}
+
+button.good:hover {
     transform: translateY(0.05em);
     box-shadow: 0 0.2em 0 0 var(--good-green-shadow), 0 0.2em 8px 1.6px var(--prim-shadow-sec);
 }
 
-button.application:active {
+button.good:active {
     transform: translateY(0.25em);
     box-shadow: 0 0 0 0 var(--good-green-shadow), 0 0 0 0 var(--prim-shadow-sec);
+}
+
+button.bad:hover {
+    transform: translateY(0.05em);
+    box-shadow: 0 0.2em 0 0 var(--bad-red-shadow), 0 0.2em 8px 1.6px var(--prim-shadow-sec);
+}
+
+button.bad:active {
+    transform: translateY(0.25em);
+    box-shadow: 0 0 0 0 var(--bad-red-shadow), 0 0 0 0 var(--prim-shadow-sec);
 }

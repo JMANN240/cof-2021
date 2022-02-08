@@ -6,34 +6,29 @@
     <link rel="stylesheet" href="../static/css/application.css" type="text/css">
     <link rel="stylesheet" href="../static/css/pictures.css" type="text/css">
     <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.css" type="text/css">
+    <script src="../static/js/requires.js" defer></script>
+    <script src="../static/js/pictures.js" defer></script>
     <script src="../static/js/buttons.js" defer></script>
 </head>
 <body class="spaced flex column">
-    <div class="slid flex row application" id="images">
+
+    <div id="previewModal" class="spaced flex column">
+        <img id="imageView" src="#">
+        <div class="centered flex row">
+            <button class="fancy good" id="image-print">
+                <i class="fas fa-print"></i> Print
+            </button>
+            <button class="fancy bad" id="exit">
+                <i class="fas fa-times-circle"></i> Close
+            </button>
+        </div>
+    </div>
+
+    <div class="centered flex row application" id="images">
 
     </div>
     <div class="menu">
-        <button class="good application" id="main"><i class="fas fa-home"></i> Home</button>
+        <button class="good fancy application" id="main"><i class="fas fa-home"></i> Home</button>
     </div>
-    <script>
-        const os = require('os');
-        const fs = require('fs');
-        const path = require("path");
-
-        let images = document.querySelector("#images");
-
-        const pictures_path = path.join(os.homedir(), "Pictures");
-
-        console.log(pictures_path);
-
-        fs.readdir(pictures_path, { withFileTypes: true }, (err, files) => {
-            for (let file of files.filter( file => file.name.match(/png|jpg|jpeg|gif|tiff/gi) !== null )) {
-                let node = document.createElement("img")
-                node.src = path.join(pictures_path, file.name);
-                images.appendChild(node);
-            }
-        });
-
-    </script>
 </body>
 </html>

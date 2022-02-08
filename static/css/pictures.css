@@ -1,5 +1,29 @@
 img {
-	width: 15vw;
-	margin: 0.5vw;
+	width: 30vw;
+	margin: 0.8vw;
 	outline: 1px solid var(--sec);
+	transition: 0.3s;
+}
+
+img.clickable:hover {
+	transform: scale(1.05);
+	transition: 0.3s;
+	outline: outset var(--good-green) 8px;
+	border-radius: 4px;
+}
+
+#imageView {
+	height: 60vh;
+	width: auto;
+}
+
+#previewModal {
+	height: 85vh;
+	display: none;
+	opacity: 0%;
+	position: absolute;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+	z-index: 2;
+	border: solid 5px;
 }
