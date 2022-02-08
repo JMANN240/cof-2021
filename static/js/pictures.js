@@ -1,7 +1,3 @@
-const os = require('os');
-const fs = require('fs');
-const path = require("path");
-
 let images = document.querySelector("#images");
 
 const pictures_path = path.join(os.homedir(), "Pictures");
@@ -9,12 +5,12 @@ const pictures_path = path.join(os.homedir(), "Pictures");
 console.log(pictures_path);
 
 let image_view = document.querySelector("#imageView");
-let print_button = document.querySelector("#print");
+let print_button = document.querySelector("#image-print");
 let exit_button = document.querySelector("#exit");
 let modal = document.querySelector("#previewModal");
 
 print_button.addEventListener("click", () => {
-    ipcRenderer.send("image:print", image_view.src);
+    ipcRenderer.send("image:request", image_view.src);
 });
 
 exit_button.addEventListener("click", () => {

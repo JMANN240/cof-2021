@@ -14,3 +14,10 @@ h1 {
     margin: 2vh 2vw;
     will-change: transform, opacity;
 }
+
+#settings {
+    position: fixed;
+    bottom: 0.25em;
+    right: 0.25em;
+    font-size: 1vw;
+}

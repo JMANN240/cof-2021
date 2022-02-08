@@ -12,11 +12,10 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
     "electron": "^16.0.7",
-    "electron-store": "^8.0.1"
-  },
-  "devDependencies": {
+    "electron-store": "^8.0.1",
     "chokidar": "^3.5.3",
     "electron-packager": "^15.4.0",
     "yargs": "^17.3.1"
-  }
+  },
+  "devDependencies": {}
 }
