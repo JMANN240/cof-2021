@@ -40,9 +40,21 @@ body {
     height: 100vh;
 }
 
+input {
+    margin: 0.5em;
+    padding: 0.5em;
+    outline: 1px solid var(--prim-shadow-sec);
+    border: none;
+    border-radius: 0.5em;
+}
+
 .flex {
     display: flex;
     flex-wrap: wrap;
+}
+
+.nowrap {
+    flex-wrap: nowrap;
 }
 
 .slid {
@@ -76,6 +88,18 @@ body {
 .bad {
     background-color: var(--bad-red);
     border: 1px solid var(--bad-red-shadow);
+}
+
+.outset {
+    transform: translateY(-1vh);
+    outline: 1px solid var(--prim-shadow);
+    box-shadow: 0 1vh 0 0 var(--prim-shadow), 0 1vh 5px 2px var(--prim-shadow-sec);
+}
+
+.inset {
+    transform: translateY(-0.5vh);
+    outline: 1px solid var(--prim-shadow);
+    box-shadow: 0 0.5vh 0 0 var(--prim-shadow) inset, 0 0.5vh 5px 2px var(--prim-shadow-sec) inset;
 }
 
 button {
@@ -115,8 +139,7 @@ button {
     }
 
     to {
-        transform: translateY(0em);
-        box-shadow: 0 0.25em 0 0 var(--good-green-shadow), 0 0.25em 10px 2px var(--prim-shadow-sec);
+        
     }
 }
 
@@ -134,8 +157,7 @@ button {
     }
 
     to {
-        transform: translateY(0em);
-        box-shadow: 0 0.25em 0 0 var(--bad-red-shadow), 0 0.25em 10px 2px var(--prim-shadow-sec);
+        
     }
 }
 
