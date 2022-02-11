@@ -75,6 +75,12 @@ ipcMain.on("page:change", (e, p) => {
 
     if (p.startsWith("custom-button") || Object.keys(page_links).includes(p)) {
         const view = new BrowserView();
+
+        view.webContents.setWindowOpenHandler(({ url }) => {
+            view.webContents.loadURL(url);
+            return { action: 'deny' };
+        })
+
         mainWindow.setBrowserView(view);
         view.setBounds({ x: 0, y: 0, width: width, height: parseInt(height * 0.8) });
         view.webContents.loadURL(link);
