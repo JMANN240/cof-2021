@@ -11,17 +11,19 @@
     <script src="../static/js/settings.js" defer></script>
 </head>
 <body class="spaced flex column">
-    <div class="application slid flex column nowrap">
+    <div class="application slid flex column nowrap" id="settings-area">
         <div class="outset setting">
             Username:
             <input type="text" class="valued" id="username">
         </div>
         <div class="outset setting">
             Pictures Path:
-            <input type="text" class="valued" id="pictures-path">
+            <button class="fancy" id="pictures-path-button">Select</button>
+            <br>
+            <input type="text" class="valued" id="pictures-path" readonly>
         </div>
         <div class="outset setting">
-            Default Printer:
+            Default Printer: &nbsp;&nbsp;&nbsp;&nbsp;
             <select id="default-printer" class="valued"></select>
         </div>
         <div class="outset setting centered flex column" id="custom-sites">
