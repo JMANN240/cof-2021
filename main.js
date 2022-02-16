@@ -8,8 +8,7 @@ const electron = require("electron");
 const Store = require('electron-store');
 const { URL, format } = require("url");
 const path = require("path");
-
-// console.log(os.userInfo().username);
+const os = require('os');
 
 const { app, BrowserWindow, BrowserView, Menu, ipcMain, webContents, dialog } = electron;
 
@@ -162,7 +161,7 @@ ipcMain.handle("get-printers", async (e) => {
 ipcMain.handle("settings:open-dialog", async (e) => {
     const options = {
         title : "Select a pictures folder",
-        defaultPath : "C:\\Users\\colby\\Downloads",
+        defaultPath : os.userInfo().homedir,
         buttonLabel : "Select",
         properties : ["openDirectory"]
     }
