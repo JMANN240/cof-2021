@@ -2,10 +2,26 @@
     margin: 1vh 1vw;
     padding: 1vh 1vw;
     border-radius: 1vw;
-
 }
 
 div.setting {
     margin: 2vh 2vw;
     padding: 2vh 2vw;
+}
+
+#pictures-path-button {
+    font-size: 2vw;
+}
+
+#settings-area, #pictures-path {
+    font-size: 1.5vw;
+}
+
+#pictures-path {
+    width: 50ch;
+}
+
+#default-printer {
+    font-size: 1vw;
+    margin-left: 2vw;
 }

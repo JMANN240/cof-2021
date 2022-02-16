@@ -1,5 +1,27 @@
 let default_printer_select = document.querySelector("#default-printer");
 let custom_sites_div = document.querySelector("#custom-sites");
+let pictures_path_button = document.querySelector("#pictures-path-button");
+
+function editSettings(element) {
+    const setting = element.id.replace(/-/g, '_');
+    const value = element.value;
+    if (value != "") {
+        console.log(`Setting ${setting} to ${value}`);
+        ipcRenderer.send("settings:set", setting, value)
+    } else {
+        console.log(`Deleting ${setting}`);
+        ipcRenderer.send("settings:delete", setting)
+    }
+}
+
+// Setup event listener for ipc dialog
+pictures_path_button.addEventListener("click", async (e) => {
+    let path = await ipcRenderer.invoke("settings:open-dialog");
+    if (!path.canceled) {
+        document.querySelector("#pictures-path").value = path.filePaths;
+    }
+    editSettings(document.querySelector("#pictures-path"));
+});
 
 let init = async () =>  {
     let printers = await ipcRenderer.invoke('get-printers');
@@ -47,15 +69,7 @@ let init = async () =>  {
             element.value = value;
         }
         element.addEventListener("change", (e) => {
-            const setting = e.target.id.replace(/-/g, '_');
-            const value = e.target.value;
-            if (value != "") {
-                console.log(`Setting ${setting} to ${value}`);
-                ipcRenderer.send("settings:set", setting, value)
-            } else {
-                console.log(`Deleting ${setting}`);
-                ipcRenderer.send("settings:delete", setting)
-            }
+            editSettings(e.target);
         });
     }
 }

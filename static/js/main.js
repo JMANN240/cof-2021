@@ -2,10 +2,8 @@ let greeting = document.querySelector("#greeting");
 let buttons_div = document.querySelector("#buttons");
 
 let init = async () => {
-    let username = await require("electron").ipcRenderer.invoke("settings:get", "username");
-    if (username != undefined) {
-        greeting.innerHTML = `Welcome, ${username}`;
-    }
+    let username = (await require("electron").ipcRenderer.invoke("settings:get", "username")) ?? os.userInfo().username;
+    greeting.innerHTML = `Welcome, ${username}`;
 
     for (let i = 0; i < 8; i++) {
         // <button class="good fancy application" id="email"><i class="fas fa-envelope"></i> Email</button>
