@@ -17,6 +17,10 @@ div.setting {
     font-size: 1.5vw;
 }
 
+#pictures-path {
+    width: 50ch;
+}
+
 #default-printer {
     font-size: 1vw;
 }
