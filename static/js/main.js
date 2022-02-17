@@ -17,8 +17,6 @@ let init = async () => {
             buttons_div.appendChild(custom_button);
         }
     }
-
-    animate_buttons();
 }
 
 init();
