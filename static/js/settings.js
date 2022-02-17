@@ -17,7 +17,7 @@ function editSettings(element) {
 
 // Setup event listener for ipc dialog
 pictures_path_button.addEventListener("click", async (e) => {
-    let path = await ipcRenderer.invoke("settings:open-dialog");
+    let path = await ipcRenderer.invoke("open-dialog", "Select a pictures folder");
     if (!path.canceled) {
         pictures_path_input.value = path.filePaths;
         pictures_path_input.dispatchEvent(new Event('input'));
