@@ -25,6 +25,8 @@
     --good-green-shadow: #80c0a0;
     --bad-red-shadow: #aa3723;
     --bad-red: #f04d30;
+    --info-blue: #1273DE;
+    --info-blue-shadow: #004DCF;
 }
 
 * {
@@ -88,6 +90,11 @@ input {
 .bad {
     background-color: var(--bad-red);
     border: 1px solid var(--bad-red-shadow);
+}
+
+.info {
+    background-color: var(--info-blue);
+    border: 1px solid var(--info-blue-shadow);
 }
 
 .outset {
@@ -161,6 +168,24 @@ button {
     }
 }
 
+@keyframes button-in-info {
+    from {
+        opacity: 0%;
+        transform: translateY(0.5em);
+        box-shadow: 0 0 0 0 var(--info-blue-shadow), 0 0 0 0 var(--prim-shadow-sec);
+    }
+
+    50% {
+        opacity: 100%;
+        transform: translateY(0.25em);
+        box-shadow: 0 0 0 0 var(--info-blue-shadow), 0 0 0 0 var(--prim-shadow-sec);
+    }
+
+    to {
+        
+    }
+}
+
 button.fancy {
     will-change: transform, opacity, box-shadow;
     font-size: 4vw;
@@ -175,6 +200,10 @@ button.good {
 
 button.bad {
     box-shadow: 0 0.25em 0 0 var(--bad-red-shadow), 0 0.25em 10px 2px var(--prim-shadow-sec);
+}
+
+button.info {
+    box-shadow: 0 0.25em 0 0 var(--info-blue-shadow), 0 0.25em 10px 2px var(--prim-shadow-sec);
 }
 
 button.good:hover {
@@ -192,7 +221,12 @@ button.bad:hover {
     box-shadow: 0 0.2em 0 0 var(--bad-red-shadow), 0 0.2em 8px 1.6px var(--prim-shadow-sec);
 }
 
-button.bad:active {
+button.info:active {
     transform: translateY(0.25em);
-    box-shadow: 0 0 0 0 var(--bad-red-shadow), 0 0 0 0 var(--prim-shadow-sec);
+    box-shadow: 0 0 0 0 var(--info-blue-shadow), 0 0 0 0 var(--prim-shadow-sec);
+}
+
+button.info:hover {
+    transform: translateY(0.05em);
+    box-shadow: 0 0.2em 0 0 var(--info-blue-shadow), 0 0.2em 8px 1.6px var(--prim-shadow-sec);
 }

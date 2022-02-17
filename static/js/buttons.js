@@ -1,5 +1,3 @@
-const electronPackager = require("electron-packager");
-
 let animate_buttons = async () => {
     let have_animated_buttons = await ipcRenderer.invoke("one-time-event", "animate_buttons");
     let buttons = document.querySelectorAll("button.fancy");
@@ -17,6 +15,12 @@ let animate_buttons = async () => {
             });
         }
 
+        if (button.id == "favorite") {
+            button.addEventListener("click", () => {
+                ipcRenderer.send("page:favorite");
+            });
+        }
+
         if (!have_animated_buttons)
         {
             let animation_name;
@@ -24,6 +28,8 @@ let animate_buttons = async () => {
                 animation_name = "button-in-good";
             } else if (button.classList.contains("bad")) {
                 animation_name = "button-in-bad";
+            } else if (button.classList.contains("info")) {
+                animation_name = "button-in-info";
             }
     
             setTimeout(() => {
@@ -37,5 +43,3 @@ let animate_buttons = async () => {
         }
     }
 }
-
-animate_buttons();

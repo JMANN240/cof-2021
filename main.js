@@ -110,6 +110,31 @@ ipcMain.on("page:print", (e) => {
     });
 });
 
+ipcMain.on("page:favorite", (e) => {
+    let view = mainWindow.getBrowserView();
+    const url = view.webContents.getURL();
+    const title = view.webContents.getTitle();
+
+    let favorites = store.get("favorites", "");
+    let favorite_array = favorites.split(",");
+    if (!favorites.includes(url))
+    {
+        favorite_array.push(url.concat(':', title));
+    }
+    else
+    {
+        for (let i = 0; i < favorite_array.length; ++i)
+        {
+            if (favorite_array[i].includes(url))
+            {
+                favorite_array.splice(i, 1);
+            }
+        }
+    }
+    console.log(favorite_array);///
+    store.set("favorites", favorite_array.toString());
+});
+
 let page_to_print;
 
 ipcMain.on("image:request", async (e, img) => {
@@ -162,6 +187,10 @@ ipcMain.handle("one-time-event", (e, event_name) => {
     }
     one_time_event.push(event_name);
     return false;
+});
+
+ipcMain.handle("get-url", (e) => {
+    return mainWindow.getBrowserView().webContents.getURL();
 });
 
 ipcMain.handle("get-printers", async (e) => {

@@ -72,6 +72,8 @@ let init = async () =>  {
             editSettings(e.target);
         });
     }
+
+    animate_buttons();
 }
 
 init();
