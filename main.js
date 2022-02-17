@@ -154,13 +154,14 @@ ipcMain.on("image:print", (e) => {
     });
 });
 
-let one_time_event = -1;
-ipcMain.handle("one-time-event", (e) => {
-    if (one_time_event < 1)
+let one_time_event = [];
+ipcMain.handle("one-time-event", (e, event_name) => {
+    if (one_time_event.includes(event_name))
     {
-        ++one_time_event;
+        return true;
     }
-    return one_time_event;
+    one_time_event.push(event_name);
+    return false;
 });
 
 ipcMain.handle("get-printers", async (e) => {

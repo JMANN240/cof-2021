@@ -1,7 +1,7 @@
 const electronPackager = require("electron-packager");
 
 let animate_buttons = async () => {
-    let have_animated_buttons = await ipcRenderer.invoke("one-time-event");
+    let have_animated_buttons = await ipcRenderer.invoke("one-time-event", "animate_buttons");
     let buttons = document.querySelectorAll("button.fancy");
 
     for (let [index, button] of buttons.entries()) {
@@ -17,17 +17,24 @@ let animate_buttons = async () => {
             });
         }
 
-        let animation_name;
-        if (button.classList.contains("good")) {
-            animation_name = "button-in-good";
-        } else if (button.classList.contains("bad")) {
-            animation_name = "button-in-bad";
+        if (!have_animated_buttons)
+        {
+            let animation_name;
+            if (button.classList.contains("good")) {
+                animation_name = "button-in-good";
+            } else if (button.classList.contains("bad")) {
+                animation_name = "button-in-bad";
+            }
+    
+            setTimeout(() => {
+                button.style.opacity = 1;
+                button.style.animation = `${animation_name} 2s`;
+            }, ( index + 1 ) * 250);
         }
-
-        setTimeout(() => {
+        else
+        {
             button.style.opacity = 1;
-            button.style.animation = `${animation_name} 2s`;
-        }, ( index + 1 ) * (have_animated_buttons ? 0 : 250));
+        }
     }
 }
 
