@@ -154,6 +154,15 @@ ipcMain.on("image:print", (e) => {
     });
 });
 
+let one_time_event = -1;
+ipcMain.handle("one-time-event", (e) => {
+    if (one_time_event < 1)
+    {
+        ++one_time_event;
+    }
+    return one_time_event;
+});
+
 ipcMain.handle("get-printers", async (e) => {
     return mainWindow.webContents.getPrinters();
 });

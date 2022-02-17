@@ -1,4 +1,7 @@
-let animate_buttons = () => {
+const electronPackager = require("electron-packager");
+
+let animate_buttons = async () => {
+    let have_animated_buttons = await ipcRenderer.invoke("one-time-event");
     let buttons = document.querySelectorAll("button.fancy");
 
     for (let [index, button] of buttons.entries()) {
@@ -24,7 +27,7 @@ let animate_buttons = () => {
         setTimeout(() => {
             button.style.opacity = 1;
             button.style.animation = `${animation_name} 2s`;
-        }, ( index + 1 ) * 200);
+        }, ( index + 1 ) * (have_animated_buttons ? 0 : 250));
     }
 }
 
