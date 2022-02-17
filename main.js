@@ -168,17 +168,15 @@ ipcMain.handle("get-printers", async (e) => {
     return mainWindow.webContents.getPrinters();
 });
 
-ipcMain.handle("settings:open-dialog", async (e) => {
+ipcMain.handle("open-dialog", async (e, title) => {
     const options = {
-        title : "Select a pictures folder",
+        title : title,
         defaultPath : os.userInfo().homedir,
         buttonLabel : "Select",
         properties : ["openDirectory"]
     }
     
-    let res = await dialog.showOpenDialog(options);
-    console.log(res);
-    return res;
+    return await dialog.showOpenDialog(options);
 });
 
 ipcMain.on("settings:set", (e, setting, argument) => {
