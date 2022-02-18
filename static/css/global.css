@@ -116,6 +116,7 @@ button {
 }
 
 .fas,
+.far,
 .fab {
     background-color: inherit;
 }
@@ -221,12 +222,17 @@ button.bad:hover {
     box-shadow: 0 0.2em 0 0 var(--bad-red-shadow), 0 0.2em 8px 1.6px var(--prim-shadow-sec);
 }
 
-button.info:active {
+button.bad:active {
     transform: translateY(0.25em);
-    box-shadow: 0 0 0 0 var(--info-blue-shadow), 0 0 0 0 var(--prim-shadow-sec);
+    box-shadow: 0 0 0 0 var(--info-red-shadow), 0 0 0 0 var(--prim-shadow-sec);
 }
 
 button.info:hover {
     transform: translateY(0.05em);
     box-shadow: 0 0.2em 0 0 var(--info-blue-shadow), 0 0.2em 8px 1.6px var(--prim-shadow-sec);
+}
+
+button.info:active {
+    transform: translateY(0.25em);
+    box-shadow: 0 0 0 0 var(--info-blue-shadow), 0 0 0 0 var(--prim-shadow-sec);
 }

@@ -34,7 +34,7 @@ let init = async () => {
         }
     });
 
-    animate_buttons();
+    document.dispatchEvent(new Event('initComplete'));
 }
 
 init();

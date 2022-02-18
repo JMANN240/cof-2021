@@ -2,6 +2,7 @@ let default_printer_select = document.querySelector("#default-printer");
 let custom_sites_div = document.querySelector("#custom-sites");
 let pictures_path_button = document.querySelector("#pictures-path-button");
 let pictures_path_input = document.querySelector("#pictures-path");
+let reset_favorites_button = document.querySelector("#reset-favorites-button");
 
 function editSettings(element) {
     const setting = element.id.replace(/-/g, '_');
@@ -22,6 +23,10 @@ pictures_path_button.addEventListener("click", async (e) => {
         pictures_path_input.value = path.filePaths;
         pictures_path_input.dispatchEvent(new Event('input'));
     }
+});
+
+reset_favorites_button.addEventListener("click", async (e) => {
+    await ipcRenderer.send("settings:delete", "favorites");
 });
 
 let init = async () =>  {
@@ -47,7 +52,7 @@ let init = async () =>  {
         });
     }
 
-    animate_buttons();
+    document.dispatchEvent(new Event('initComplete'));
 }
 
 init();

@@ -5,7 +5,7 @@ let animate_buttons = async () => {
     for (let [index, button] of buttons.entries()) {
         if (button.classList.contains("application")) {
             button.addEventListener("click", () => {
-                ipcRenderer.send("page:change", button.id);
+                ipcRenderer.send("page:change", button.dataset.applicationType, button.dataset.site);
             });
         }
 
@@ -16,8 +16,14 @@ let animate_buttons = async () => {
         }
 
         if (button.id == "favorite") {
-            button.addEventListener("click", () => {
-                ipcRenderer.send("page:favorite");
+            button.addEventListener("click", async () => {
+                if (await ipcRenderer.invoke("page:toggle-favorite")) {
+                    // It is now a favorite
+		            button.innerHTML = '<i class="fas fa-star"></i> Unfavorite';
+                } else {
+                    // It is now not a favorite
+		            button.innerHTML = '<i class="far fa-star"></i> Favorite';
+                }
             });
         }
 
@@ -43,3 +49,8 @@ let animate_buttons = async () => {
         }
     }
 }
+
+document.addEventListener("initComplete", (e) => {
+    console.log("animating buttons");
+    animate_buttons();
+});
