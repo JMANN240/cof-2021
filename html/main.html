@@ -6,20 +6,20 @@
     <link rel="stylesheet" href="../static/css/main.css" type="text/css">
     <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.css" type="text/css">
     <script src="../static/js/requires.js" defer></script>
-    <script src="../static/js/main.js" defer></script>
     <script src="../static/js/buttons.js" defer></script>
+    <script src="../static/js/main.js" defer></script>
 </head>
 <body class="slid flex column">
     <h1 id="greeting"></h1>
     <div class="centered flex row" id="buttons">
-        <button class="good fancy application" id="email"><i class="fas fa-envelope"></i> Email</button>
-        <button class="good fancy application" id="youtube"><i class="fab fa-youtube"></i> YouTube</button>
-        <button class="good fancy application" id="pictures"><i class="fas fa-images"></i> Pictures</button>
-        <button class="good fancy application" id="search"><i class="fas fa-search"></i> Search</button>
-        <button class="good fancy application" id="facebook"><i class="fab fa-facebook-square"></i> Facebook</button>
-        <button class="good fancy application" id="docs"><i class="fas fa-file-word"></i> Docs</button>
-        <button class="good fancy application" id="sheets"><i class="fas fa-file-excel"></i> Sheets</button>
+        <button class="good fancy application" data-application-type="web" data-site="https://mail.google.com" id="email"><i class="fas fa-envelope"></i> Email</button>
+        <button class="good fancy application" data-application-type="web" data-site="https://www.youtube.com" id="youtube"><i class="fab fa-youtube"></i> YouTube</button>
+        <button class="good fancy application" data-application-type="native" data-site="pictures.html" id="pictures"><i class="fas fa-images"></i> Pictures</button>
+        <button class="good fancy application" data-application-type="web" data-site="https://google.com" id="search"><i class="fas fa-search"></i> Search</button>
+        <button class="good fancy application" data-application-type="web" data-site="https://facebook.com" id="facebook"><i class="fab fa-facebook-square"></i> Facebook</button>
+        <button class="good fancy application" data-application-type="web" data-site="https://docs.google.com/document" id="docs"><i class="fas fa-file-word"></i> Docs</button>
+        <button class="good fancy application" data-application-type="web" data-site="https://docs.google.com/spreadsheets" id="sheets"><i class="fas fa-file-excel"></i> Sheets</button>
     </div>
-    <button class="good fancy application" id="settings"><i class="fas fa-cog"></i> Settings</button>
+    <button class="good fancy application" data-application-type="native" data-site="settings.html" id="settings"><i class="fas fa-cog"></i> Settings</button>
 </body>
 </html>

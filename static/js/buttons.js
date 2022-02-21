@@ -1,5 +1,3 @@
-const electronPackager = require("electron-packager");
-
 let animate_buttons = async () => {
     let have_animated_buttons = await ipcRenderer.invoke("one-time-event", "animate_buttons");
     let buttons = document.querySelectorAll("button.fancy");
@@ -7,13 +5,25 @@ let animate_buttons = async () => {
     for (let [index, button] of buttons.entries()) {
         if (button.classList.contains("application")) {
             button.addEventListener("click", () => {
-                ipcRenderer.send("page:change", button.id);
+                ipcRenderer.send("page:change", button.dataset.applicationType, button.dataset.site);
             });
         }
 
         if (button.id == "print") {
             button.addEventListener("click", () => {
                 ipcRenderer.send("page:print");
+            });
+        }
+
+        if (button.id == "favorite") {
+            button.addEventListener("click", async () => {
+                if (await ipcRenderer.invoke("page:toggle-favorite")) {
+                    // It is now a favorite
+		            button.innerHTML = '<i class="fas fa-star"></i> Unfavorite';
+                } else {
+                    // It is now not a favorite
+		            button.innerHTML = '<i class="far fa-star"></i> Favorite';
+                }
             });
         }
 
@@ -24,6 +34,8 @@ let animate_buttons = async () => {
                 animation_name = "button-in-good";
             } else if (button.classList.contains("bad")) {
                 animation_name = "button-in-bad";
+            } else if (button.classList.contains("info")) {
+                animation_name = "button-in-info";
             }
     
             setTimeout(() => {
@@ -38,4 +50,7 @@ let animate_buttons = async () => {
     }
 }
 
-animate_buttons();
+document.addEventListener("initComplete", (e) => {
+    console.log("animating buttons");
+    animate_buttons();
+});

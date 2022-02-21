@@ -19,7 +19,7 @@
         <div class="outset setting flex column">
             <div class="flex centered">
                 Pictures Path:
-                <button class="fancy" id="pictures-path-button">Select</button>
+                <button class="fancy good" id="pictures-path-button">Select</button>
             </div>
             <input type="text" class="valued" id="pictures-path" readonly>
         </div>
@@ -27,12 +27,12 @@
             Default Printer:
             <select id="default-printer" class="valued"></select>
         </div>
-        <div class="outset setting centered flex column" id="custom-sites">
-            <h1>Custom Web Sites</h1>
+        <div class="outset setting">
+            <button class="fancy bad" id="reset-favorites-button">Reset Favorites</button>
         </div>
     </div>
     <div class="menu">
-        <button class="good fancy application" id="main"><i class="fas fa-home"></i> Home</button>
+        <button class="good fancy application" data-application-type="native" data-site="main.html" id="main"><i class="fas fa-home"></i> Home</button>
     </div>
 </body>
 </html>
