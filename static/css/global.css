@@ -190,7 +190,8 @@ button {
 button.fancy {
     will-change: transform, opacity, box-shadow;
     font-size: 4vw;
-    transition-duration: 0.2s;
+    transition-property: transform, box-shadow;
+    transition-duration: 0.2s, 0.2s;
     transform: translateY(0em);
     opacity: 0;
 }
