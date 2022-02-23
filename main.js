@@ -157,7 +157,7 @@ ipcMain.handle("get-printers", async (e) => {
     return mainWindow.webContents.getPrinters();
 });
 
-ipcMain.on("settings:set", (e, setting, argument) => {
+ipcMain.handle("settings:set", (e, setting, argument) => {
     console.log(`Setting ${setting} to ${argument}`);
     store.set(setting, argument);
 });
