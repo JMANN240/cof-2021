@@ -8,12 +8,14 @@
     <script src="../static/js/requires.js" defer></script>
     <script src="../static/js/buttons.js" defer></script>
     <script src="../static/js/analytics.js" defer></script>
+    <script src="../static/js/web.js" defer></script>
 </head>
 <body class="spaced flex column">
     <div class="application"></div>
     <div class="menu">
-        <button class="good fancy application" id="main"><i class="fas fa-home"></i> Home</button>
+        <button class="good fancy application" data-application-type="native" data-site="main.html" id="main"><i class="fas fa-home"></i> Home</button>
         <button class="good fancy" id="print"><i class="fas fa-print"></i> Print</button>
+        <button class="info fancy" id="favorite"><i class="far fa-star"></i> Favorite</button>
     </div>
 </body>
 </html>
