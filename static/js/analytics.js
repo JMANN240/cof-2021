@@ -20,7 +20,7 @@ async function PushUploadQueue() {
     // Queue is not empty. Trigger another upload.
     if (uploadQueue.length > 0) UploadEvent();
     try {
-        await fetch('https://host.com/cof-2022/analytics/upload', {
+        await fetch('https://capstone.lol/cof/analytics/upload', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
