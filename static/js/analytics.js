@@ -3,11 +3,16 @@
 const { v4: uuidv4 } = require('uuid');
 const userId = ipcRenderer.invoke("settings:get", "userId").then(async (userId) => {
     if (userId && userId.length > 0) return userId;
-    const username = await ipcRenderer.invoke("settings:get", "username");
-    userId = username + ':' + uuidv4();
+    // const username = await ipcRenderer.invoke("settings:get", "username");
+    const username = await require('username')();
+    // UserId = OS Username (only alphanumeric characters) and a GUID, separated by a colon
+    userId = username.replace(/[^a-z0-9]/gi,'') + ':' + uuidv4();
     await ipcRenderer.invoke("settings:set", "userId", userId);
     return userId;
-});
+}).then(userId => {
+    console.log('Analytics UserId: ', userId);
+    return userId;
+})
 
 console.log('running analytics');
 
