@@ -1,9 +1,12 @@
 
-const { ipcRenderer } = require('electron');
+// const { ipcRenderer } = require('electron');
 const { v4: uuidv4 } = require('uuid');
-const username = ipcRenderer.invoke("settings:get", "username");
-const userId = new Promise(async function(resolve) {
-    resolve((await username) + ':' + uuidv4());
+const userId = ipcRenderer.invoke("settings:get", "userId").then(async (userId) => {
+    if (userId && userId.length > 0) return userId;
+    const username = await ipcRenderer.invoke("settings:get", "username");
+    userId = username + ':' + uuidv4();
+    await ipcRenderer.invoke("settings:set", "userId", userId);
+    return userId;
 });
 
 console.log('running analytics');
