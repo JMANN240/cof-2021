@@ -16,7 +16,11 @@ const userId = ipcRenderer.invoke("settings:get", "userId").then(async (userId) 
 
 console.log('running analytics');
 
-const uploadQueue = [];
+const uploadQueue = JSON.parse(localStorage.getItem('analytics_upload_queue') || '[]');
+function SaveUploadQueue() {
+    localStorage.setItem('analytics_upload_queue', JSON.stringify(uploadQueue));
+}
+
 async function PushUploadQueue() {
     if (uploadQueue.length == 0) return;
     const user = await userId;
@@ -25,6 +29,7 @@ async function PushUploadQueue() {
         o.user = user;
         return o;
     });
+    SaveUploadQueue();
     // Queue is not empty. Trigger another upload.
     if (uploadQueue.length > 0) UploadEvent();
     try {
@@ -39,6 +44,7 @@ async function PushUploadQueue() {
         // Failed to push
         // Put items back at the beginning of the queue
         uploadQueue.unshift(...items);
+        SaveUploadQueue();
         // Trigger another upload.
         UploadEvent();
     }
@@ -48,13 +54,22 @@ async function PushUploadQueue() {
 // Upload once no more events have come in for 2 seconds or until the queue has reached 20 entries
 let batchedUpload;
 function UploadEvent(payload) {
-    if (payload) uploadQueue.push(payload);
+    if (payload) {
+        uploadQueue.push(payload);
+        SaveUploadQueue();
+    }
     if (uploadQueue.length > 20) {
         clearTimeout(batchedUpload);
         PushUploadQueue();
     }
     if (batchedUpload) clearTimeout(batchedUpload);
     batchedUpload = setTimeout(PushUploadQueue, 2000);
+}
+
+
+// Trigger event upload for events from last page navigation
+if (uploadQueue.length > 0) {
+    UploadEvent();
 }
 
 function RecordEvent(event) {
@@ -78,6 +93,8 @@ function RecordEvent(event) {
                     [...o.classList.values()].map(o2 => '.' + o2)
                     : '').join('')
             ));
+        result.content = event.target && event.target.innerText.trim();
+        if (result.content && result.content.length > 100) result.content = result.content.substr(0, 100) + '...';
         result.time = {
             epoc: Date.now(),
             local: new Date().toLocaleString(),
