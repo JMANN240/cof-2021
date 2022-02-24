@@ -1,3 +1,6 @@
+const fetch = require("node-fetch");
+const { readFileSync, writeFileSync } = require('fs');
+
 const yargs = require('yargs');
 const { hideBin } = require('yargs/helpers')
 const argv = yargs(hideBin(process.argv)).argv
@@ -9,10 +12,24 @@ const Store = require('electron-store');
 const { URL, format } = require("url");
 const path = require("path");
 const os = require('os');
+const {ElectronBlocker, fullLists, Request} = require("@cliqz/adblocker-electron")
 
 const { app, BrowserWindow, BrowserView, Menu, ipcMain, webContents, dialog } = electron;
 
 const store = new Store();
+
+const blocker =  ElectronBlocker.fromLists(
+    fetch,
+    fullLists,
+    {
+      enableCompression: true,
+    },
+    {
+      path: 'engine.bin',
+      read: async (...args) => readFileSync(...args),
+      write: async (...args) => writeFileSync(...args),
+    },
+  );
 
 let htmlPath = path.join("file://", __dirname, "html")
 
@@ -47,6 +64,7 @@ app.on("ready", () => {
     const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
     Menu.setApplicationMenu(dev ? mainMenu : null);
 });
+
 
 ipcMain.on("page:change", (e, type, site) => {
     console.log(type, site);
@@ -118,6 +136,7 @@ let toggleMembership = (array, element, mapping) => {
 ipcMain.handle("page:toggle-favorite", (e) => {
     let view = mainWindow.getBrowserView();
     const url = view.webContents.getURL();
+    blocker.enableBlockingInSession(view.webContents.session);
     const title = view.webContents.getTitle();
     const entry = {
         url: url,
@@ -258,3 +277,7 @@ if (process.env.NODE_ENV !== "production") {
         ]
     })
 }
+
+
+
+
