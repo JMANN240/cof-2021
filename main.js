@@ -18,19 +18,6 @@ const { app, BrowserWindow, BrowserView, Menu, ipcMain, webContents, dialog } = 
 
 const store = new Store();
 
-const blocker =  ElectronBlocker.fromLists(
-    fetch,
-    fullLists,
-    {
-      enableCompression: true,
-    },
-    {
-      path: 'engine.bin',
-      read: async (...args) => readFileSync(...args),
-      write: async (...args) => writeFileSync(...args),
-    },
-  );
-
 let htmlPath = path.join("file://", __dirname, "html")
 
 let altKey = process.platform == "darwin" ? "Command" : "Ctrl"
@@ -41,8 +28,9 @@ app.setLoginItemSettings({
     openAtLogin: true
 });
 
+let blocker;
 let mainWindow;
-app.on("ready", () => {
+app.on("ready", async () => {
     const { screen } = require('electron')
     const primaryDisplay = screen.getPrimaryDisplay()
 
@@ -53,6 +41,19 @@ app.on("ready", () => {
             contextIsolation: false
         }
     });
+
+    blocker = await ElectronBlocker.fromLists(
+        fetch,
+        fullLists,
+        {
+            enableCompression: true,
+        },
+        {
+            path: 'engine.bin',
+            read: async (...args) => readFileSync(...args),
+            write: async (...args) => writeFileSync(...args),
+        },
+    );
 
     let mainURL = new URL(path.join(htmlPath, "main.html"));
     mainWindow.loadURL(mainURL.href);
@@ -88,6 +89,8 @@ ipcMain.on("page:change", (e, type, site) => {
             view.webContents.loadURL(url);
             return { action: 'deny' };
         })
+
+        blocker.enableBlockingInSession(view.webContents.session);
 
         mainWindow.setBrowserView(view);
         view.setBounds({ x: 0, y: 0, width: dev ? parseInt(width*0.6) : width, height: parseInt(height * 0.8) });
@@ -136,7 +139,6 @@ let toggleMembership = (array, element, mapping) => {
 ipcMain.handle("page:toggle-favorite", (e) => {
     let view = mainWindow.getBrowserView();
     const url = view.webContents.getURL();
-    blocker.enableBlockingInSession(view.webContents.session);
     const title = view.webContents.getTitle();
     const entry = {
         url: url,
