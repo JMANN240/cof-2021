@@ -1,0 +1,34 @@
+h1 {
+	opacity: 0%;
+    font-size: 8vw;
+    font-weight: 100;
+    animation-name: fade-in;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    margin: 2vh 2vw;
+    will-change: transform, opacity;
+}
+
+h2 {
+	opacity: 0%;
+    font-size: 6vw;
+    font-weight: 100;
+    animation-name: fade-in;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    margin: 2vh 2vw;
+    will-change: transform, opacity;
+	text-decoration: underline;
+}
+
+p {
+	font-size: 3vw;
+	font-weight: 80;
+	padding: 2.5vw;
+}
+
+#instructions {
+	height: 80vh;
+	width: 100vw;
+	overflow-y: scroll;
+}
