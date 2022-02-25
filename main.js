@@ -66,6 +66,16 @@ app.on("ready", async () => {
     Menu.setApplicationMenu(dev ? mainMenu : null);
 });
 
+ipcMain.on("page:navigate", (e, direction) => {
+    if (direction == "back")
+    {
+        mainWindow.getBrowserView().webContents.goBack();
+    }
+    else if (direction == "forward")
+    {
+        mainWindow.getBrowserView().webContents.goForward();
+    }
+});
 
 ipcMain.on("page:change", (e, type, site) => {
     console.log(type, site);
