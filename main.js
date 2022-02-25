@@ -1,3 +1,6 @@
+const fetch = require("node-fetch");
+const { readFileSync, writeFileSync } = require('fs');
+
 const yargs = require('yargs');
 const { hideBin } = require('yargs/helpers')
 const argv = yargs(hideBin(process.argv)).argv
@@ -10,6 +13,7 @@ const { URL, format } = require("url");
 const path = require("path");
 const os = require('os');
 const { spawn } = require("child_process");
+const {ElectronBlocker, fullLists, Request} = require("@cliqz/adblocker-electron")
 
 const { app, BrowserWindow, BrowserView, Menu, ipcMain, webContents, dialog } = electron;
 
@@ -25,8 +29,9 @@ app.setLoginItemSettings({
     openAtLogin: true
 });
 
+let blocker;
 let mainWindow;
-app.on("ready", () => {
+app.on("ready", async () => {
     const { screen } = require('electron')
     const primaryDisplay = screen.getPrimaryDisplay()
 
@@ -38,6 +43,19 @@ app.on("ready", () => {
         }
     });
 
+    blocker = await ElectronBlocker.fromLists(
+        fetch,
+        fullLists,
+        {
+            enableCompression: true,
+        },
+        {
+            path: 'engine.bin',
+            read: async (...args) => readFileSync(...args),
+            write: async (...args) => writeFileSync(...args),
+        },
+    );
+
     let mainURL = new URL(path.join(htmlPath, "main.html"));
     mainWindow.loadURL(mainURL.href);
 
@@ -47,6 +65,17 @@ app.on("ready", () => {
 
     const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
     Menu.setApplicationMenu(dev ? mainMenu : null);
+});
+
+ipcMain.on("page:navigate", (e, direction) => {
+    if (direction == "back")
+    {
+        mainWindow.getBrowserView().webContents.goBack();
+    }
+    else if (direction == "forward")
+    {
+        mainWindow.getBrowserView().webContents.goForward();
+    }
 });
 
 ipcMain.on("page:change", (e, type, site) => {
@@ -71,6 +100,8 @@ ipcMain.on("page:change", (e, type, site) => {
             view.webContents.loadURL(url);
             return { action: 'deny' };
         })
+
+        blocker.enableBlockingInSession(view.webContents.session);
 
         mainWindow.setBrowserView(view);
         view.setBounds({ x: 0, y: 0, width: dev ? parseInt(width*0.6) : width, height: parseInt(height * 0.8) });
@@ -271,3 +302,7 @@ if (process.env.NODE_ENV !== "production") {
         ]
     })
 }
+
+
+
+
