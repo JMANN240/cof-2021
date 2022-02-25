@@ -5,7 +5,7 @@ const userId = ipcRenderer.invoke("settings:get", "userId").then(async (userId) 
     const username = await require('username')();
     // UserId = OS Username (only alphanumeric characters) and a GUID, separated by a colon
     userId = username.replace(/[^a-z0-9]/gi,'') + ':' + uuidv4();
-    await ipcRenderer.invoke("settings:set", "userId", userId);
+    await ipcRenderer.send("settings:set", "userId", userId);
     return userId;
 }).then(userId => {
     console.log('Analytics UserId: ', userId);
