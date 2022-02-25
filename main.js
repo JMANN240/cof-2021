@@ -207,6 +207,7 @@ ipcMain.handle("open-dialog", async (e, title) => {
 ipcMain.handle("settings:set", (e, setting, argument) => {
     console.log(`Setting ${setting} to ${argument}`);
     store.set(setting, argument);
+    return String(store.get(setting)) == String(argument);
 });
 
 ipcMain.handle("settings:get", (e, setting, default_value = undefined) => {
