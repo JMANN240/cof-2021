@@ -8,8 +8,9 @@ const electron = require("electron");
 const Store = require('electron-store');
 const { URL, format } = require("url");
 const path = require("path");
+const os = require('os');
 
-const { app, BrowserWindow, BrowserView, Menu, ipcMain, webContents } = electron;
+const { app, BrowserWindow, BrowserView, Menu, ipcMain, webContents, dialog } = electron;
 
 const store = new Store();
 
@@ -47,33 +48,22 @@ app.on("ready", () => {
     Menu.setApplicationMenu(dev ? mainMenu : null);
 });
 
-page_links = {
-    youtube: "https://www.youtube.com",
-    email: "https://mail.google.com",
-    search: "https://google.com",
-    facebook: "https://facebook.com",
-    docs: "https://docs.google.com/document",
-    sheets: "https://docs.google.com/spreadsheets"
-}
+ipcMain.on("page:change", (e, type, site) => {
+    console.log(type, site);
 
-ipcMain.on("page:change", (e, p) => {
     let html_file, link;
-    if (p.startsWith("custom-button") || Object.keys(page_links).includes(p)) {
+
+    if (type == 'web') {
         html_file = "web.html";
-        if (p.startsWith("custom-button")) {
-            let setting = p.replace(/button/g, "link").replace(/-/g, '_');
-            link = store.get(setting)
-        } else if (Object.keys(page_links).includes(p)) {
-            link = page_links[p]
-        }
-    } else {
-        html_file = `${p}.html`;
+        link = site
+    } else if (type == 'native') {
+        html_file = site;
     }
+
     let mainURL = new URL(path.join(htmlPath, html_file));
-    mainWindow.loadURL(mainURL.href);
     const { height, width } = mainWindow.getContentBounds();
 
-    if (p.startsWith("custom-button") || Object.keys(page_links).includes(p)) {
+    if (type == 'web') {
         const view = new BrowserView();
 
         view.webContents.setWindowOpenHandler(({ url }) => {
@@ -82,7 +72,10 @@ ipcMain.on("page:change", (e, p) => {
         })
 
         mainWindow.setBrowserView(view);
-        view.setBounds({ x: 0, y: 0, width: width, height: parseInt(height * 0.8) });
+        view.setBounds({ x: 0, y: 0, width: dev ? parseInt(width*0.6) : width, height: parseInt(height * 0.8) });
+        view.webContents.on("did-finish-load", () => {
+            mainWindow.webContents.send("main:web-loaded");
+        });
         view.webContents.loadURL(link);
     } else {
         if (mainWindow.getBrowserView() != undefined) {
@@ -90,6 +83,7 @@ ipcMain.on("page:change", (e, p) => {
         }
         mainWindow.setBrowserView(null);
     }
+    mainWindow.loadURL(mainURL.href);
 });
 
 ipcMain.on("page:print", (e) => {
@@ -107,6 +101,33 @@ ipcMain.on("page:print", (e) => {
             console.log(err);
         }
     });
+});
+
+let toggleMembership = (array, element, mapping) => {
+    const index = array.map(mapping).indexOf(mapping(element));
+
+    if (index === -1) {
+        array.push(element);
+        return true;
+    } else {
+        array.splice(index, 1);
+        return false;
+    }
+}
+
+ipcMain.handle("page:toggle-favorite", (e) => {
+    let view = mainWindow.getBrowserView();
+    const url = view.webContents.getURL();
+    const title = view.webContents.getTitle();
+    const entry = {
+        url: url,
+        title: title
+    }
+
+    let favorites = store.get("favorites", []);
+    const isFavorite = toggleMembership(favorites, entry, e => e.url);
+    store.set("favorites", favorites);
+    return isFavorite;
 });
 
 let page_to_print;
@@ -153,8 +174,34 @@ ipcMain.on("image:print", (e) => {
     });
 });
 
+let one_time_event = [];
+ipcMain.handle("one-time-event", (e, event_name) => {
+    if (one_time_event.includes(event_name))
+    {
+        return true;
+    }
+    one_time_event.push(event_name);
+    return false;
+});
+
+ipcMain.handle("get-url", (e) => {
+    return mainWindow.getBrowserView().webContents.getURL();
+});
+
 ipcMain.handle("get-printers", async (e) => {
     return mainWindow.webContents.getPrinters();
+});
+
+
+ipcMain.handle("open-dialog", async (e, title) => {
+    const options = {
+        title : title,
+        defaultPath : os.userInfo().homedir,
+        buttonLabel : "Select",
+        properties : ["openDirectory"]
+    }
+    
+    return await dialog.showOpenDialog(options);
 });
 
 ipcMain.on("settings:set", (e, setting, argument) => {
@@ -162,10 +209,10 @@ ipcMain.on("settings:set", (e, setting, argument) => {
     store.set(setting, argument);
 });
 
-ipcMain.handle("settings:get", (e, setting) => {
+ipcMain.handle("settings:get", (e, setting, default_value = undefined) => {
     const val = store.get(setting);
     console.log(`Getting ${setting} is ${val}`);
-    return val;
+    return val ?? default_value;
 });
 
 ipcMain.on("settings:delete", (e, setting) => {
