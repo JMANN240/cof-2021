@@ -10,6 +10,7 @@
   "author": "JT Raber, Colby Reinhart, Vanessa Sanders, Christopher Seitz",
   "license": "ISC",
   "dependencies": {
+    "@cliqz/adblocker-electron": "^1.23.6",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "chokidar": "^3.5.3",
     "electron": "^16.0.7",
@@ -17,6 +18,7 @@
     "electron-store": "^8.0.1",
     "username": "^4.0.0",
     "uuid": "^8.3.2",
+    "node-fetch": "^2.6.1",
     "yargs": "^17.3.1"
   }
 }

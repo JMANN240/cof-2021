@@ -21,12 +21,12 @@
     --prim-shadow: #d0d0d0;
     --prim-shadow-sec: #808080;
     --sec: #404040;
-    --good-green: #b0f0d0;
-    --good-green-shadow: #80c0a0;
-    --bad-red-shadow: #aa3723;
-    --bad-red: #f04d30;
-    --info-blue: #1273DE;
-    --info-blue-shadow: #004DCF;
+    --good-green: #99ef99;
+    --good-green-shadow: #77dd77;
+    --bad-red: #ef9999;
+    --bad-red-shadow: #dd7777;
+    --info-blue: #9999ef;
+    --info-blue-shadow: #7777dd;
 }
 
 * {
