@@ -12,6 +12,7 @@ const Store = require('electron-store');
 const { URL, format } = require("url");
 const path = require("path");
 const os = require('os');
+const { spawn } = require("child_process");
 const {ElectronBlocker, fullLists, Request} = require("@cliqz/adblocker-electron")
 
 const { app, BrowserWindow, BrowserView, Menu, ipcMain, webContents, dialog } = electron;
@@ -221,6 +222,18 @@ ipcMain.handle("get-url", (e) => {
 
 ipcMain.handle("get-printers", async (e) => {
     return mainWindow.webContents.getPrinters();
+});
+
+ipcMain.on("power:shut-down", async (e) => {
+    let shutdown_command, shutdown_args;
+    if (process.platform == "win32") {
+        shutdown_command = "shutdown";
+        shutdown_args = ['/s', '/t', '0'];
+    } else {
+        shutdown_command = "sudo";
+        shutdown_args = ['shutdown', '-h', 'now'];
+    }
+    spawn(shutdown_command, shutdown_args);
 });
 
 ipcMain.handle("open-dialog", async (e, title) => {

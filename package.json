@@ -16,6 +16,8 @@
     "electron": "^16.0.7",
     "electron-packager": "^15.4.0",
     "electron-store": "^8.0.1",
+    "username": "^4.0.0",
+    "uuid": "^8.3.2",
     "node-fetch": "^2.6.1",
     "yargs": "^17.3.1"
   }
