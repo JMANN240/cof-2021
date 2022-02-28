@@ -15,6 +15,12 @@ let animate_buttons = async () => {
             });
         }
 
+        if (button.id == "shut-down") {
+            button.addEventListener("click", () => {
+                ipcRenderer.send("power:shut-down");
+            });
+        }
+
         if (button.id == "favorite") {
             button.addEventListener("click", async () => {
                 if (await ipcRenderer.invoke("page:toggle-favorite")) {

@@ -74,6 +74,11 @@ input {
     align-items: center;
 }
 
+.between {
+    justify-content: space-between;
+    align-items: center;
+}
+
 .row {
     flex-direction: row;
 }
