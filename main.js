@@ -10,10 +10,16 @@ if (dev) require('./hotreload');
 const electron = require("electron");
 const Store = require('electron-store');
 const { URL, format } = require("url");
+const url = require('url');
 const path = require("path");
 const os = require('os');
 const { spawn } = require("child_process");
 const {ElectronBlocker, fullLists, Request} = require("@cliqz/adblocker-electron")
+const contextMenu = require('electron-context-menu');
+
+contextMenu({
+	showSaveImageAs: true
+});
 
 const { app, BrowserWindow, BrowserView, Menu, ipcMain, webContents, dialog } = electron;
 
@@ -56,8 +62,16 @@ app.on("ready", async () => {
         },
     );
 
-    let mainURL = new URL(path.join(htmlPath, "main.html"));
-    mainWindow.loadURL(mainURL.href);
+    ///let mainURL = new URL(path.join(htmlPath, "main.html"));
+    // mainWindow.loadURL(mainURL.href);
+
+    let mainURL = url.format({
+        pathname: path.join(__dirname, 'html', 'main.html'),
+        protocol: 'file:',
+        slashes: true
+    });
+
+    mainWindow.loadURL(mainURL);
 
     mainWindow.on("closed", () => {
         app.quit();
@@ -90,7 +104,11 @@ ipcMain.on("page:change", (e, type, site) => {
         html_file = site;
     }
 
-    let mainURL = new URL(path.join(htmlPath, html_file));
+    let mainURL = url.format({
+        pathname: path.join(__dirname, 'html', html_file),
+        protocol: 'file:',
+        slashes: true
+    });
     const { height, width } = mainWindow.getContentBounds();
 
     if (type == 'web') {
@@ -115,7 +133,7 @@ ipcMain.on("page:change", (e, type, site) => {
         }
         mainWindow.setBrowserView(null);
     }
-    mainWindow.loadURL(mainURL.href);
+    mainWindow.loadURL(mainURL);
 });
 
 ipcMain.on("page:print", (e) => {
@@ -168,8 +186,12 @@ ipcMain.on("image:request", async (e, img) => {
     console.log(`requested to print ${img}`);
     let view = new BrowserView();
     page_to_print = view.webContents;
-    let mainURL = new URL(path.join(htmlPath, "print.html"));
-    page_to_print.loadURL(mainURL.href);
+    let mainURL = url.format({
+        pathname: path.join(__dirname, 'html', 'print.html'),
+        protocol: 'file:',
+        slashes: true
+    });
+    page_to_print.loadURL(mainURL);
     page_to_print.executeJavaScript(`img.src = "${img}"; printReady`)
         .then(o => {
             console.log("printing...");
