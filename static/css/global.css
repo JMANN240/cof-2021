@@ -194,7 +194,7 @@ button {
 
 button.fancy {
     will-change: transform, opacity, box-shadow;
-    font-size: 4vw;
+    font-size: 3.85vw;
     transition-duration: 0.2s;
     transform: translateY(0em);
     opacity: 0;
