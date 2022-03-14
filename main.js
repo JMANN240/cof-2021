@@ -49,18 +49,7 @@ app.on("ready", async () => {
         }
     });
 
-    blocker = await ElectronBlocker.fromLists(
-        fetch,
-        fullLists,
-        {
-            enableCompression: true,
-        },
-        {
-            path: 'engine.bin',
-            read: async (...args) => readFileSync(...args),
-            write: async (...args) => writeFileSync(...args),
-        },
-    );
+    blocker = await ElectronBlocker.fromPrebuiltAdsAndTracking(fetch);
 
     ///let mainURL = new URL(path.join(htmlPath, "main.html"));
     // mainWindow.loadURL(mainURL.href);
